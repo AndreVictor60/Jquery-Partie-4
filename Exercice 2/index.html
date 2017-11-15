@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="jquery-3.2.1.js"></script>
+  <title>Exercice 2</title>
+</head>
+<body>
+  <form id='form'>
+    <label> 1 Note<input type="text" name="1note" id='1note' value=""/></label><br/>
+    <label> 2 Note<input type="text" name="2note" id='2note' value=""/></label><br/>
+    <label> 3 Note<input type="text" name="3note" id='3note' value=""/></label><br/>
+    <label> 4 Note<input type="text" name="4note" id='4note' value=""/></label><br/>
+    <label> 5 Note<input type="text" name="5note" id='5note' value=""/></label><br/>
+    <input type="submit" value="Submit"><br/>
+    <label ><strong>Moyenne</strong><p id='moyenne'></p></label>
+    <label><strong>Appréciation</strong><p id='appre'></p></label>
+  </form>
+  <script>
+  $(function () {
+    $('#form').click(function(){
+      // Déclarer les variables
+      var note1 = $('#1note').val();
+      var note2 = $('#2note').val();
+      var note3 = $('#3note').val();
+      var note4 = $('#4note').val();
+      var note5 = $('#5note').val();
+      // Vérifier les variables pour savoir si c'est des nombres
+      if(!isNaN(note1) == true && !isNaN(note2) == true && !isNaN(note3) == true && !isNaN(note4) == true && !isNaN(note5) == true){
+        // Calcul la moyenne des notes
+        var moyenne = (parseInt(note1) + parseInt(note2) + parseInt(note3) + parseInt(note4) + parseInt(note5))/5;
+        // Afficher la moyenne
+        $('#moyenne').text(moyenne);
+        // On fait les tests et on n'affiche l'appréciation
+        if(moyenne < 10){
+          $('#appre').text('En dessous de la moyenne');
+        }else if((moyenne >= 10) && (moyenne < 13)){
+          $('#appre').text('Moyen');
+        }else if((moyenne >= 13)&&(moyenne < 16)){
+          $('#appre').text('Très bien');
+        }else if ((moyenne >=16)&&(moyenne < 20)){
+          $('#appre').text('Très bien');
+        }else if(moyenne == 20){
+          $('#appre').text('Excellent');
+        }else{
+          $('#appre').text('Erreur au niveau des notes');
+        }
+      }else {
+        $('#appre').text('Erreur au niveau de la saisie');
+      }
+    });
+  });
+  </script>
+</body>
+</html>

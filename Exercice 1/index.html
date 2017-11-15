@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="jquery-3.2.1.js"></script>
+  <title>Exercice 1</title>
+</head>
+<body>
+  <form>
+    <SELECT name="nom" size="1" id='select'>
+      <option value='Pierre' id='pierre'>Pierre</option>
+      <<option value='Feuille' id='feuille'>Feuille</option>
+      <option value='Ciseaux' id='ciseaux'>Ciseaux</option>
+    </select>
+  <button type="button" name="submit" id='button'>Shifumi ! </button><br/>
+    <label>Scores de IA <p id='ia'>0</p></label>
+    <label>Scores du player<p id='player'>0</p>Taux de victoire : <p id='pourcentage'></p></label>
+    <label>Nombre de partie<p id='partie'>0</p></label>
+</form>
+
+  <script>
+  $(function(){
+    // Déclarer les variables
+    var choice_ia = null;
+    var choice_player = null;
+    var score_player = 1;
+    var score_ia = 1;
+    var compteur = 0;
+    var pourcentage = 0;
+    function choiceIa(){
+      // Choisir un nombre aléatoire
+      ia_number = Math.floor(Math.random() * 3);
+      // Par rapport au nombre aléatoire, on choisit un jeu
+      if( ia_number == 1){
+        choice_ia = $('#pierre').text();
+      }else if(ia_number == 2){
+        choice_ia = $('#feuille').text();
+      }else{
+        choice_ia = $('#ciseaux').text();
+      }
+      // Retourne le choix de IA
+      return choice_ia;
+    }
+    function choicePlayer() {
+      // Récuperer le choix de utilisateur
+      choice_player = $('#select').val();
+      // Retourne le choix de utilisateur
+      return choice_player;
+    }
+    function compare(ia, player) {
+
+      // Jeu perdu
+  		if ((ia == "Pierre" && player == "Ciseaux") || (ia == "Feuille" && player == "Pierre") || (ia == "Ciseaux" && player == "Feuille")) {
+  			result = "tu as perdu !";
+        // Ajout +1 au score de IA
+        $('#ia').text(score_ia++);
+  		}
+      // Choix de IA == Choix du player
+  		else if (ia == player) {
+  			result = "c'est un match nul !";
+  		}
+  		else {
+  			result = "tu as gagné !";
+        // Ajout +1 au score du player
+        $('#player').text(score_player++);
+        // Calculer le pourcentage score du player / compteur
+        pourcentage = score_player / compteur;
+        // Afficher la variable pourcentage
+        $('#pourcentage').text(pourcentage);
+  		}
+      // Retourne le result
+      return alert(result);
+  }
+
+    $('#button').click(function() {
+      // Chaque partie on n'ajout +1 a la variable compteur
+      $('#partie').text(compteur++);
+      // Ajout le choix de choiceIa dans la variable IA
+      var ia = choiceIa();
+      // Ajouter le choix du choicePlayer dans la variable Player
+      var player = choicePlayer();
+      // Appeler la fonction compare et on compare les deux résultats
+      compare(ia,player);
+    })
+  });
+  </script>
+</body>
+</html>
